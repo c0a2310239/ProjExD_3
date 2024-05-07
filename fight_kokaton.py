@@ -133,6 +133,7 @@ class Beam:
         vx = Bird.dire[0]
         vy = Bird.dire[1]
         angle = math.atan2(-vx, vy)
+        
 
 
     def update(self, screen: pg.Surface):
