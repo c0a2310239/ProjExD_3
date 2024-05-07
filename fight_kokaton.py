@@ -3,6 +3,7 @@ import random
 import sys
 import time
 import pygame as pg
+import math
 
 
 WIDTH = 1600  # ゲームウィンドウの幅
@@ -56,6 +57,7 @@ class Bird:
         self.img = __class__.imgs[(+5, 0)]
         self.rct: pg.Rect = self.img.get_rect()
         self.rct.center = xy
+        self.dire = (+5,0)
 
     def change_img(self, num: int, screen: pg.Surface):
         """
@@ -82,6 +84,8 @@ class Bird:
             self.rct.move_ip(-sum_mv[0], -sum_mv[1])
         if not (sum_mv[0] == 0 and sum_mv[1] == 0):
             self.img = __class__.imgs[tuple(sum_mv)]
+        if sum_mv != [0, 0]:
+            self.dire = sum_mv
         screen.blit(self.img, self.rct)
 
 
@@ -121,11 +125,15 @@ class Beam:
         """
         後で書く
         """
-        self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), 0, 2.0)
+        self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), math.degrees(angle), 2.0)
         self.rct: pg.Rect = self.img.get_rect() # ビーム画像rect
         self.rct.left = bird.rct.right #ビームの左座標にこうかとんの右座標を設定する
         self.rct.centery = bird.rct.centery
         self.vx, self.vy = +5, 0 # 横方向速度、縦方向速度
+        vx = Bird.dire[0]
+        vy = Bird.dire[1]
+        angle = math.atan2(-vx, vy)
+
 
     def update(self, screen: pg.Surface):
         """
