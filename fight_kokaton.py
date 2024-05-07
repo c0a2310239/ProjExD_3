@@ -140,7 +140,7 @@ class Score:
 
     def __init__(self):
         """
-        
+        画面にスコアを表示するためのクラスScore
         """
         self.fonto = pg.font.SysFont("hgp創英角ポップ体", 30)
         self.count = 0
